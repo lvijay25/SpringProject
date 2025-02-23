@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -20,12 +21,13 @@ import java.time.LocalDateTime;
 public class User implements Serializable {
 
     private static final Logger logging = LogManager.getLogger(User.class);
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "username", length=150, nullable = false, unique = false)
+    @Column(name = "username", length=150, nullable = false)
     private String username;
     @Column(name = "email", unique = true)
     private String email;
@@ -58,7 +60,6 @@ public class User implements Serializable {
     private void afterUserCreated(){
         logging.info("User Created Successfully");
     }
-
     @PostUpdate
     private void afterUserUpdated(){
         logging.info("User Updated Successfully");
